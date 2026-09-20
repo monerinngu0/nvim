@@ -51,7 +51,7 @@ vim.api.nvim_create_user_command("Temp", function(opts)
 
     local lines = vim.fn.readfile(path)
 
-    local author = os.getenv("USER") or "unknown"
+    local author = "monerinngu" --[[os.getenv("USER") or "unknown"]]--
     local created = os.date("%d.%m.%Y %H:%M:%S")
     local filename = vim.fn.expand("%:t")
 
