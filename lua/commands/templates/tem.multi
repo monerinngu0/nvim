@@ -1,0 +1,22 @@
+/**
+ *  author : ${AUTHOR}
+ *  created: ${CREATED}
+ */
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#ifdef DEBUG
+#include <mone/debug.h>
+#else
+#define debug(...) ((void)0)
+#endif
+
+void solve() {
+}
+
+int main() {
+    int T;
+    cin >> T;
+    while (T--) solve();
+}
