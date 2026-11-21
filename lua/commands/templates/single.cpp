@@ -12,5 +12,5 @@ using ll = long long;
 #define debug(...) ((void)0)
 #endif
 
-int main() {
-${CURSOR}}
+int main() {${CURSOR}
+}

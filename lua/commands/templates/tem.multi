@@ -12,8 +12,8 @@ using ll = long long;
 #define debug(...) ((void)0)
 #endif
 
-void solve() {
-${CURSOR}}
+void solve() {${CURSOR}
+}
 
 int main() {
     int T;

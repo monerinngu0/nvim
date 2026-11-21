@@ -1,5 +1,5 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-${CURSOR}}
+int main() {${CURSOR}
+}

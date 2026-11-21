@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-void solve() {
-${CURSOR}}
+void solve() {${CURSOR}
+}
 
 int main() {
     int T;
