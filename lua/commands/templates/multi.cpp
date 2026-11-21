@@ -2,6 +2,7 @@
 using namespace std;
 
 void solve() {
+    ${CURSOR}
 }
 
 int main() {

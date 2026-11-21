@@ -13,6 +13,7 @@ using ll = long long;
 #endif
 
 void solve() {
+    ${CURSOR}
 }
 
 int main() {
