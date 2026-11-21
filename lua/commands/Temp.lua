@@ -55,41 +55,29 @@ vim.api.nvim_create_user_command("Temp", function(opts)
     local created = os.date("%d.%m.%Y %H:%M:%S")
     local filename = vim.fn.expand("%:t")
 
+    local cursor_pos
+
     for i, line in ipairs(lines) do
-        line = line:gsub("%${AUTHOR}", author)
-        line = line:gsub("%${CREATED}", created)
-        line = line:gsub("%${FILENAME}", filename)
-        lines[i] = line
+        local indent = line:match("^([ \t]*)%${CURSOR}[ \t]*$")
+        if indent then
+            if cursor_pos then
+                vim.notify("テンプレートに ${CURSOR} が複数あります: " .. path, vim.log.levels.ERROR)
+                return
+            end
+            cursor_pos = { i, math.max(#indent - 1, 0) }
+            lines[i] = indent
+        else
+            line = line:gsub("%${AUTHOR}", author)
+            line = line:gsub("%${CREATED}", created)
+            line = line:gsub("%${FILENAME}", filename)
+            lines[i] = line
+        end
     end
 
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 
-    local function find_func(name)
-        for i, line in ipairs(lines) do
-            if line:match("^%s*[%w_:<>~*&]+%s+" .. name .. "%s*%(") then
-                local col = line:find("{", 1, true)
-
-                if col then
-                    return { i, col - 1 }
-                end
-
-                for j = i + 1, #lines do
-                    local next_col = lines[j]:find("{", 1, true)
-
-                    if next_col then
-                        return { j, next_col - 1 }
-                    end
-                end
-            end
-        end
-
-        return nil
-    end
-
-    local func_pos = find_func("solve") or find_func("main")
-
-    if func_pos then
-        vim.api.nvim_win_set_cursor(0, func_pos)
+    if cursor_pos then
+        vim.api.nvim_win_set_cursor(0, cursor_pos)
     end
 end, {
     nargs = "?",
