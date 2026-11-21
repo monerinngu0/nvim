@@ -58,14 +58,20 @@ vim.api.nvim_create_user_command("Temp", function(opts)
     local cursor_pos
 
     for i, line in ipairs(lines) do
-        local indent = line:match("^([ \t]*)%${CURSOR}[ \t]*$")
+        local indent, suffix = line:match("^([ \t]*)%${CURSOR}(.*)$")
         if indent then
-            if cursor_pos then
+            if cursor_pos or suffix:find("${CURSOR}", 1, true) then
                 vim.notify("テンプレートに ${CURSOR} が複数あります: " .. path, vim.log.levels.ERROR)
                 return
             end
-            cursor_pos = { i, math.max(#indent - 1, 0) }
-            lines[i] = indent
+
+            if suffix:match("^[ \t]*$") then
+                cursor_pos = { i, math.max(#indent - 1, 0) }
+                lines[i] = indent
+            else
+                cursor_pos = { i, #indent }
+                lines[i] = indent .. suffix
+            end
         else
             line = line:gsub("%${AUTHOR}", author)
             line = line:gsub("%${CREATED}", created)

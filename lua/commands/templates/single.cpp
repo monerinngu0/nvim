@@ -13,5 +13,4 @@ using ll = long long;
 #endif
 
 int main() {
-    ${CURSOR}
-}
+${CURSOR}}
