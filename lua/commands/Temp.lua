@@ -1,5 +1,5 @@
 vim.api.nvim_create_user_command("Temp", function(opts)
-    if opts.args == "clear" then
+    if opts.args == "0" then
         vim.api.nvim_buf_set_lines(0, 0, -1, false, {})
         vim.api.nvim_win_set_cursor(0, { 1, 0 })
         return
